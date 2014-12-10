@@ -21,6 +21,16 @@
 
 module.exports.connections = {
 
+  /** SHOPPET MONGODB CONNECTION */
+  shoppetMongoDB: {
+    adapter: 'sails-mongo',
+    host: 'localhost',
+    port: 27017,
+    // user: 'username',
+    // password: 'password',
+    database: 'shoppets'
+  },
+
   /***************************************************************************
   *                                                                          *
   * Local disk storage for DEVELOPMENT ONLY                                  *
