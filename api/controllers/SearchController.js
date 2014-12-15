@@ -5,7 +5,7 @@
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 
-var Faker = require('Faker');
+var Faker = require('faker');
 Faker.locale = "pt_BR";
 
 module.exports = {
