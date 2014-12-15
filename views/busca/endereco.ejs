@@ -1,0 +1,52 @@
+<section class="home">
+    <div class="container_12">
+        <div class="row">
+            <div class="grid_7 busca">
+                <h2>Confirme seu endereço e escolha o serviço que procura!</h2>
+                <form method="post" action="/busca/index">
+                    <input type="hidden" name="bairro" value="<%= correio.bairro %>" />
+                    <div class="row gutters">
+                        <div class="col grid_10">
+                            <input type="text" name="endereco" value="<%= correio.tipo_logradouro + ' ' + correio.logradouro %>" placeholder="Endereço" class="check" />
+                        </div>
+                        <div class="col grid_2">
+                            <input type="text" name="numero" value="" placeholder="Número" />
+                        </div>
+                    </div>
+                    <div class="row gutters">
+                        <div class="col grid_2">
+                            <input type="text" name="uf" value="<%= correio.uf %>" placeholder="UF" class="check" />
+                        </div>
+                        <div class="col grid_5">
+                            <input type="text" name="cidade" value="<%= correio.cidade %>" placeholder="Cidade" class="check" />
+                        </div>
+                        <div class="col grid_5">
+                            <select name="tipo" title="Serviço">
+                                <optgroup>
+                                    <option value="PET">Petshops</option>
+                                    <option value="VET">Veterinárias</option>
+                                    <option value="PETVET">Todos</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row gutters">
+                        <div class="col grid_3">
+                            <a href="/" class="bt">Voltar</a>
+                        </div>
+                        <div class="col grid_9">
+                            <button type="submit">Buscar Petshops</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="grid_7 app">
+                <div class="row gutters">
+                    <div class="col grid_4"><a href="#" class="animated"><img src="/images/apple.png" width="30" height="30" alt=""/><div><span>Disponível para</span> Iphone</div></a></div>
+                    <div class="col grid_4"><a href="#" class="animated"><img src="/images/android.png" width="30" height="30" alt=""/><div><span>Disponível para</span> Android</div> </a></div>
+                    <div class="col grid_4"><a href="#" class="win animated"><img src="/images/windows.png" width="30" height="30" alt=""/><div><span>Disponível para</span> Windows Phone</div></a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
