@@ -28,7 +28,7 @@ module.exports = {
       if(petvet){
         res.status(200).json(petvet.toJSON());
       }else{
-        res.status(400).json({message:"Erro ao criar PetVet aleatÃ³rio!", err: err, data: data});
+        res.status(400).json({message:"Erro ao criar PetVet aleatorio!", err: err, data: data});
       }
     });    
   },
