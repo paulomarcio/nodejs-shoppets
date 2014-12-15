@@ -16,7 +16,7 @@ module.exports = {
 			if(result.results.length) {
 				var latlong = [result.results[0].geometry.location.lat, result.results[0].geometry.location.lng];
 
-				Client.find({'loc': {'$near': {'$geometry': {type: 'Point', coordinates: latlong, '$maxDistance': 1}}}}, function(err, clients){
+				Client.find({'loc': {'$near': latlong, '$maxDistance': 1}}, function(err, clients){
 					if (err) return next(err);
 
 					res.view({
