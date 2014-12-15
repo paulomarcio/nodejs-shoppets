@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>New Sails App</title>
+    <title>Shoppets</title>
 
     <!-- Viewport mobile tag for sensible mobile support -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -29,15 +29,35 @@
     -->
 
     <!--STYLES-->
+    <link rel="stylesheet" href="/styles/960.css">
+    <link rel="stylesheet" href="/styles/animate.css">
+    <link rel="stylesheet" href="/styles/flaticon.css">
     <link rel="stylesheet" href="/styles/importer.css">
+    <link rel="stylesheet" href="/styles/normaliz.css">
+    <link rel="stylesheet" href="/styles/style.css">
     <!--STYLES END-->
   </head>
 
   <body>
+  <header>
+    <div class="container_12">
+      <div class="row gutters">
+        <div class="col grid_3 logo"><img src="/images/logo.png" width="140" height="45"></div>
+        <div class="col grid_9 menu">
+          <nav> 
+            <!--a href="#">Sobre o Ipet</a> 
+            <a href="#">Para Petshops</a> 
+            <a href="#">Contato</a--> 
+            <a href="#" class="bt">Contato</a> 
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
     <%- body %>
-
-
-
+  <footer>
+    Copyright&copy; shoppets.com.br. Todos os direitos reservados
+  </footer>
     <!--
         Client-side Templates
         ========================
