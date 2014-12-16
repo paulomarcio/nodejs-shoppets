@@ -70,7 +70,10 @@ module.exports = {
     var lat = req.param("lat"), 
         lng = req.param("lng"),
         type = req.param("type"),
-        p = req.param("p");
+        p = req.param("p") || 1;
+
+        p = parseInt(p);
+
     
     var ret = {},
         status = 200;
@@ -89,10 +92,24 @@ module.exports = {
           ret.err = "Type invalid";
           res.status(status).json(ret);
         }else{
-          res.status(status).json(ret);    
+          SearchService.getPetVetByLocAndType([lng, lat], "VET", p, function(err, petvets){
+            if(err) {
+              status = 400;            
+              ret.err = "Error searching";
+              res.status(status).json(ret);
+            } else {
+              ret.results = SearchService.MAX_RESULTS;
+              ret.data = {};
+              ret.data[type.toLowerCase()] = {
+                nextUrl: "/search?lat="+lat+"&lng="+lng+"&type="+type+"&p="+(p+1),
+                items: petvets                    
+              };
+              res.status(status).json(ret);
+            }
+          });          
         }
       }else{
-        SearchService.getPetVetByLocAndType([lng, lat], "PET", 1, function(err, petvets){
+        SearchService.getPetVetByLocAndType([lng, lat], "PET", p, function(err, petvets){
           if(err) {
             status = 400;            
             ret.err = "Error searching";
@@ -100,20 +117,20 @@ module.exports = {
           }else{
             ret.data = {
               pet: {
-                nextUrl: "/search?lat="+lat+"&lng="+lng+"&type=PET&p=2",
+                nextUrl: "/search?lat="+lat+"&lng="+lng+"&type=PET&p="+(p+1),
                 items: petvets
               }
             };
 
-            SearchService.getPetVetByLocAndType([lng, lat], "VET", 1, function(err, petvets){
+            SearchService.getPetVetByLocAndType([lng, lat], "VET", p, function(err, petvets){
               if(err) {
                 status = 400;            
                 ret.err = "Error searching";
                 res.status(status).json(ret);
               }else{
-                res.results = SearchService.MAX_RESULTS;
+                ret.results = SearchService.MAX_RESULTS;
                 ret.data.vet = {
-                  nextUrl: "/search?lat="+lat+"&lng="+lng+"&type=VET&p=2",
+                  nextUrl: "/search?lat="+lat+"&lng="+lng+"&type=VET&p="+(p+1),
                   items: petvets                    
                 };
                 res.status(status).json(ret);
