@@ -11,84 +11,62 @@ module.exports = {
 		var endereco = req.param('endereco') + ',' + req.param('numero') + ',' + req.param('cidade') + ',' + req.param('uf');
 
 		geocoder.geocode(endereco, function(err, result) {
-			if (err) return next(err);
+			if (err) {
+				console.log(err);
+				res.redirect('/');
+			};
 
 			if(result.results.length) {
-				var latlong = [result.results[0].geometry.location.lat, result.results[0].geometry.location.lng];
-
-				Client.find({'loc': {'$near': latlong, '$maxDistance': 1}}, function(err, clients){
-					if (err) return next(err);
-
-					res.view({
-						clients: clients
-					});
+				res.view({
+					lat: result.results[0].geometry.location.lat,
+					lng: result.results[0].geometry.location.lng
 				});
 			} else {
-				Client.find(function(err, clients){
-					if (err) return next(err);
-
-					res.view({
-						clients: clients
-					});
-				});
+				console.log('Não foi encontrado resultados para o endereço informado!');
+				res.redirect('/');
 			}
-
-			//res.json(result);
 		});
 	},
 
 	endereco: function(req, res, next){
 
+		var cep = require('cep');
+
+		if(req.param('cep')) {
+			cep.request.data.from(req.param('cep'), function(err, endereco){
+
+				//res.json(endereco);
+
+				if (err) {
+					console.log(err);
+					res.redirect('/');
+				}
+
+				res.view({
+					endereco: endereco
+				});
+			});
+		} else {
+			res.redirect('/');
+		}		
+
 		// Código utilizando SOAP com Webservice dos Correios
-		var soap = require('soap');
+		/*var soap = require('soap');
 		var url = 'https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl';		
 		var args = {cep: req.param('cep')};
 
 		soap.createClient(url, function(err, atendeCliente) {
 			if (err) return next(err);
 
-			atendeCliente.consultaCEP(args, function(err, correio) {
+			//res.json(atendeCliente.describe());
+
+			atendeCliente.AtendeClienteService.AtendeClientePort.consultaCEP(args, function(err, correio) {
 				if (err) return next(err);
 
 				res.view({
 					correio: correio
 				});
 			});
-		});
-		
-		/*var http = require('http');
-		var cep = req.param('cep');
-		var url = 'http://cep.republicavirtual.com.br/web_cep.php?cep=' + cep + '&formato=json';
-
-		var options = {
-			hostname: 'cep.republicavirtual.com.br',
-			port: 80,
-			path: '/web_cep.php?cep=' + cep + '&formato=json',
-			method: 'GET'
-		};
-
-		http.request(options, function(response){
-			var responseData = '';
-
-			response.setEncoding('utf8');
-
-			response.on('data', function(chunk){
-		    	responseData += chunk;
-		    });
-
-			response.once('error', function(err){
-				// Some error handling here, e.g.:
-				res.serverError(err);
-			});
-
-			response.on('end', function(){
-				var correio = JSON.parse(responseData);
-
-				res.view({
-					correio: correio
-				});
-			});
-
-		}).end();*/
+		});*/
 	}
 };

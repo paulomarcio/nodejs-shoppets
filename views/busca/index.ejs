@@ -3,24 +3,20 @@
         <div class="row result">
             <div class=" grid_12">
                 <div class="row">
-                    <h2>Encontrado <span>(<%= clients.length %>)</span> resultados</h2>
+                    <h2>Encontrado <span>(0)</span> resultados</h2>
                     <div class="row lista">
-                        <% _.each(clients, function(client) { %>
                         <div class="col grid_12 pets">
                             <div class="row gutters">
                                 <div class="logo-pet col grid_3">
                                     <img src="/images/logo-pet.png" width="230" height="107">
                                 </div>
                                 <div class="col grid_6">
-                                    <h3><%= client.name %></h3>
-                                    <div class="avaliacao open">
-                                        <!--i class="glyph-icon flaticon-paw1"></i>| <i class="glyph-icon flaticon-pins48 ico"></i-->Distância: 2.2 Km | <!--i class="glyph-icon flaticon-phone322 ico"></i--><!--Horário: 9h às 18h -->
-                                    </div>
+                                    <h3>Pet</h3>
+                                    <div class="avaliacao open">Distância: 2.2 Km</div>
                                 </div>
                                 <a href="#" class="entrar col grid_3"><span>+</span> Detalhes</a>
                             </div>
                         </div>
-                        <% }); %>
                     </div>
                 </div>
             </div>

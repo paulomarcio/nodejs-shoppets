@@ -5,6 +5,7 @@
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
+    "cep": "0.0.3",
     "ejs": "~0.8.4",
     "faker": "^2.1.1",
     "geocoder": "^0.2.2",
@@ -25,7 +26,8 @@
     "sails": "~0.10.5",
     "sails-disk": "~0.10.0",
     "sails-mongo": "~0.10.4",
-    "soap": "^0.6.0"
+    "soap": "^0.6.0",
+    "ws.js": "0.0.19"
   },
   "scripts": {
     "start": "node app.js",
