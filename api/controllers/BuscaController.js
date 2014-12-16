@@ -34,9 +34,6 @@ module.exports = {
 
 		if(req.param('cep')) {
 			cep.request.data.from(req.param('cep'), function(err, endereco){
-
-				//res.json(endereco);
-
 				if (err) {
 					console.log(err);
 					res.redirect('/');
@@ -48,25 +45,6 @@ module.exports = {
 			});
 		} else {
 			res.redirect('/');
-		}		
-
-		// Código utilizando SOAP com Webservice dos Correios
-		/*var soap = require('soap');
-		var url = 'https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl';		
-		var args = {cep: req.param('cep')};
-
-		soap.createClient(url, function(err, atendeCliente) {
-			if (err) return next(err);
-
-			//res.json(atendeCliente.describe());
-
-			atendeCliente.AtendeClienteService.AtendeClientePort.consultaCEP(args, function(err, correio) {
-				if (err) return next(err);
-
-				res.view({
-					correio: correio
-				});
-			});
-		});*/
+		}
 	}
 };
