@@ -38,7 +38,25 @@ module.exports = {
 	},
 
 	endereco: function(req, res, next){
-		var http = require('http');
+
+		// Código utilizando SOAP com Webservice dos Correios
+		var soap = require('soap');
+		var url = 'https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl';		
+		var args = {cep: req.param('cep')};
+
+		soap.createClient(url, function(err, atendeCliente) {
+			if (err) return next(err);
+
+			atendeCliente.consultaCEP(args, function(err, correio) {
+				if (err) return next(err);
+
+				res.view({
+					correio: correio
+				});
+			});
+		});
+		
+		/*var http = require('http');
 		var cep = req.param('cep');
 		var url = 'http://cep.republicavirtual.com.br/web_cep.php?cep=' + cep + '&formato=json';
 
@@ -71,6 +89,6 @@ module.exports = {
 				});
 			});
 
-		}).end();
+		}).end();*/
 	}
 };
