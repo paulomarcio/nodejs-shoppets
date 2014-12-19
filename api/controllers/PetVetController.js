@@ -39,7 +39,7 @@ module.exports = {
                   '$geoNear': {
                     near :  [lng, lat],
                     spherical : true,
-                    distanceField: "distance",
+                    distanceField: "dist",
                     query: {'_id': require('mongodb').ObjectID(id)},
                     distanceMultiplier: 6371
                   }
@@ -48,7 +48,7 @@ module.exports = {
                   '$project': {
                     _id: false,
                     id: '$_id',
-                    distance: 1,
+                    dist: 1,
                     type: 1,
                     name: 1,
                     loc: 1,

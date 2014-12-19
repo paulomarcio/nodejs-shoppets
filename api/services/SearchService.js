@@ -12,7 +12,7 @@ module.exports = {
               '$geoNear': {
                 near :  loc,
                 spherical : true,
-                distanceField: "distance",
+                distanceField: "dist",
                 query: {'type': {'$in': [type, "PETVET"]}},
                 distanceMultiplier: 6371,
                 maxDistance: SearchService.MAX_DISTANCE
@@ -22,7 +22,7 @@ module.exports = {
               '$project': {
                 _id: false,
                 id: '$_id',
-                distance: 1,
+                dist: 1,
                 type: 1,
                 name: 1,
                 loc: 1,
