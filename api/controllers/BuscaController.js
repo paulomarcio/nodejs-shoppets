@@ -7,25 +7,35 @@
 
 module.exports = {
 	index: function(req, res, next) {
-		var geocoder = require('geocoder');
-		var endereco = req.param('endereco') + ',' + req.param('numero') + ',' + req.param('cidade') + ',' + req.param('uf');
 
-		geocoder.geocode(endereco, function(err, result) {
-			if (err) {
-				console.log(err);
-				res.redirect('/');
-			};
+		if(req.params.all().length == 4) {
+			var geocoder = require('geocoder');
+			var endereco = req.param('endereco') + ',' + req.param('numero') + ',' + req.param('cidade') + ',' + req.param('uf');
+			var tipo = req.param('tipo');
 
-			if(result.results.length) {
-				res.view({
-					lat: result.results[0].geometry.location.lat,
-					lng: result.results[0].geometry.location.lng
-				});
-			} else {
-				console.log('Não foi encontrado resultados para o endereço informado!');
-				res.redirect('/');
-			}
-		});
+			geocoder.geocode(endereco, function(err, result) {
+				if (err) {
+					console.log(err);
+					res.redirect('/');
+				};
+
+				if(result.results.length) {
+					res.view({
+						lat: result.results[0].geometry.location.lat,
+						lng: result.results[0].geometry.location.lng,
+						tipo: tipo,
+						acao: 'busca'
+					});
+				}
+			});
+		} else {
+			res.view({
+				lat: 0,
+				lng: 0,
+				tipo: 'petvet',
+				acao: 'geobusca'
+			});
+		}
 	},
 
 	endereco: function(req, res, next){
@@ -53,5 +63,7 @@ module.exports = {
 				}
 			});
 		}
-	}
+	},
+
+	detalhe: function(req, res, next) {}
 };
