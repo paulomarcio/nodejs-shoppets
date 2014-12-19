@@ -34,7 +34,7 @@ module.exports.routes = {
 
   '/': {
     view: 'static/home'
-  }
+  },
 
   /***************************************************************************
   *                                                                          *
@@ -45,5 +45,7 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
+  '/petvet/:id': 'PetVetController.index'
+
 
 };

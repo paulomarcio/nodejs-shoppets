@@ -65,7 +65,6 @@ module.exports = {
     });    
   },
 
-
   index: function(req, res) {
     var lat = req.param("lat"), 
         lng = req.param("lng"),
@@ -85,7 +84,7 @@ module.exports = {
     }else{
       lat = parseFloat(lat);
       lng = parseFloat(lng);
-      if(type !== undefined) {   
+      if(type !== undefined) {
         type = type.toUpperCase();
         if(PetVet.attributes.type.enum.indexOf(type) == -1){
           status = 400;
