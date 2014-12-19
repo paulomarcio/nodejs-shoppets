@@ -30,7 +30,7 @@ module.exports = {
 
 	endereco: function(req, res, next){
 
-		var cep = require('cep');
+		var cep = require('cep');		
 
 		if(req.param('cep')) {
 			cep.request.data.from(req.param('cep'), function(err, endereco){
@@ -44,7 +44,14 @@ module.exports = {
 				});
 			});
 		} else {
-			res.redirect('/');
+			res.view({
+				endereco: {
+					logradouro: '',
+					bairro: '',
+					localidade: '',
+					uf: ''
+				}
+			});
 		}
 	}
 };
