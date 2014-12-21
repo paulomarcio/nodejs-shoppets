@@ -8,7 +8,7 @@ function getResults(lat, lng, tipo) {
         type: 'GET',
         success: function(response) {                
             $('a.pagination').html('Mais resultados');
-            $('a.pagination').attr('href', 'http://private-b5f28-shoppet.apiary-mock.com' + response.nextUrl);
+            $('a.pagination').attr('href', 'http://private-b5f28-shoppet.apiary-mock.com' + response.data.pet.nextUrl);
 
             for(var i = 0; i < response.data.pet.items.length; i++) {
                 var imagem = response.data.pet.items[i].image;
