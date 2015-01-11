@@ -24,7 +24,7 @@ var cssFilesToInject = [
 var jsFilesToInject = [
   
   // Load sails.io before everything else
-  'js/dependencies/sails.io.js', 'js/jquery-2.1.3.min.js','js/common.js',
+  'js/dependencies/sails.io.js', 'https://maps.googleapis.com/maps/api/js?v=3.exp', 'js/jquery-2.1.3.min.js','js/common.js',
 
   // Dependencies like jQuery, or Angular are brought in here
   'js/dependencies/**/*.js',

@@ -1,3 +1,32 @@
+var directionsDisplay;
+var directionsService = new google.maps.DirectionsService();
+var map;
+
+function initialize(start, destination) {
+    directionsDisplay = new google.maps.DirectionsRenderer();
+    var center = new google.maps.LatLng(start.lat, start.lng);
+    var mapOptions = {
+        zoom:7,
+        center: center
+    };
+    map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    directionsDisplay.setMap(map);
+    calcRoute(start, destination);
+}
+
+function calcRoute(start, destination) {
+    var request = {
+        origin: new google.maps.LatLng(start.lat, start.lng),
+        destination: new google.maps.LatLng(destination.lat, destination.lng),
+        travelMode: google.maps.TravelMode.DRIVING
+    };
+    directionsService.route(request, function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+        }
+    });
+}
+
 function getResults(lat, lng, tipo) {
     $('a.pagination').html('Pesquisando...');
 
@@ -60,19 +89,44 @@ function getDetalhes(id, lat, lng) {
         type: 'GET',
         cache: false,
         success: function(response) {
-            var distancia = ((response.dist * 1) < 1000) ? response.dist + ' m' : ((response.dist * 1) / 1000).toPrecision(1) + ' Km';
 
-            $('#detalhes').html('<div class="logo-pet col grid_3"><img src="' + response.image + '" width="230" height="107"></div>' + "\n"
-            + '<div class="col grid_6">' + "\n"
-                + '<h3>' + response.name + '</h3>' + "\n"
-                + '<div class="avaliacao open">' + "\n"
-                    + '<p><strong>Distância:</strong> ' + distancia + "\n"
-                    + '<p><strong>Endereço:</strong> ' + response.address + '</p>' + "\n"
-                    + '<p><strong>Telefone(s):</strong> ' + response.phones.join(', ') + '</p>' + "\n"
-                    + '<p><strong>Email:</strong> <a href="mailto:' + response.email + '">' + response.email + '</a>' + "\n"
-                + '</div>' + "\n"
-            + '</div>' + "\n"
-            + '<a href="/busca" class="entrar back col grid_3"> voltar</a>');
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var distancia = ((response.dist * 1) < 1000) ? response.dist + ' m' : ((response.dist * 1) / 1000).toPrecision(1) + ' Km';                                        
+                    var start = {position.coords.latitude, position.coords.longitude};
+                    var destination = {response.loc[0], response.loc[1]};
+
+                    $('#detalhes').html('<div class="logo-pet col grid_3"><img src="' + response.image + '" width="230" height="107"></div>' + "\n"
+                    + '<div class="col grid_6">' + "\n"
+                        + '<h3>' + response.name + '</h3>' + "\n"
+                        + '<div class="avaliacao open">' + "\n"
+                            + '<p><strong>Distância:</strong> ' + distancia + "\n"
+                            + '<p><strong>Endereço:</strong> ' + response.address + '</p>' + "\n"
+                            + '<p><strong>Telefone(s):</strong> ' + response.phones.join(', ') + '</p>' + "\n"
+                            + '<p><strong>Email:</strong> <a href="mailto:' + response.email + '">' + response.email + '</a>' + "\n"
+                        + '</div>' + "\n"
+                    + '</div>' + "\n"
+                    + '<a href="/busca" class="entrar back col grid_3"> voltar</a>');
+
+                    initialize(start, destination);
+
+                }, function (msg) {
+                    var mensagem = typeof msg === 'string' ? msg : "Falhou";
+                    var distancia = ((response.dist * 1) < 1000) ? response.dist + ' m' : ((response.dist * 1) / 1000).toPrecision(1) + ' Km';
+
+                    $('#detalhes').html('<div class="logo-pet col grid_3"><img src="' + response.image + '" width="230" height="107"></div>' + "\n"
+                    + '<div class="col grid_6">' + "\n"
+                        + '<h3>' + response.name + '</h3>' + "\n"
+                        + '<div class="avaliacao open">' + "\n"
+                            + '<p><strong>Distância:</strong> ' + distancia + "\n"
+                            + '<p><strong>Endereço:</strong> ' + response.address + '</p>' + "\n"
+                            + '<p><strong>Telefone(s):</strong> ' + response.phones.join(', ') + '</p>' + "\n"
+                            + '<p><strong>Email:</strong> <a href="mailto:' + response.email + '">' + response.email + '</a>' + "\n"
+                        + '</div>' + "\n"
+                    + '</div>' + "\n"
+                    + '<a href="/busca" class="entrar back col grid_3"> voltar</a>');
+                });
+            }            
         }
     });
 }
