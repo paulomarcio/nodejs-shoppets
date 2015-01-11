@@ -65,5 +65,14 @@ module.exports = {
         }
     },
     detalhe: function (req, res, next) {
+        var id = req.param('id');
+        var lat = req.param('lat');
+        var lng = req.param('lng');
+
+        res.view({
+            id: id,
+            lat: lat,
+            lng: lng
+        });
     }
 };

@@ -21,9 +21,11 @@ function getResults(lat, lng, tipo) {
             }            
 
             for (var i = 0; i < itemCount; i++) {
+                var id = response.data.petvet.items[i].id;
                 var imagem = response.data.petvet.items[i].image;
                 var nome = response.data.petvet.items[i].name;
-                var distancia = ((response.data.petvet.items[i].dist * 1) < 1000) ? response.data.petvet.items[i].dist + ' m' : ((response.data.petvet.items[i].dist * 1) / 1000).toFixed(1) + ' Km';
+                var distancia = ((response.data.petvet.items[i].dist * 1) < 1000) ? response.data.petvet.items[i].dist + ' m' : ((response.data.petvet.items[i].dist * 1) / 1000).toPrecision(1) + ' Km';
+                var loc = response.data.petvet.items[i].loc;
 
                 $('#resultados').append('<div class="row lista">' + "\n"
                     + '<div class="col grid_12 pets">' + "\n"
@@ -35,7 +37,7 @@ function getResults(lat, lng, tipo) {
                                 + '<h3>' + nome + '</h3>' + "\n"
                             + '<div class="avaliacao open">Distância: ' + distancia + '</div>' + "\n"
                         + '</div>' + "\n"
-                        + '<a href="#" class="entrar col grid_3"><span>+</span> Detalhes</a>' + "\n"
+                        + '<a href="/busca/detalhes?id=' + id + '&lat=' + loc[0] + '&lng=' + loc[1] + '" class="entrar col grid_3"><span>+</span> Detalhes</a>' + "\n"
                         + '</div>' + "\n"
                     + '</div>' + "\n"
                 + '</div>');
@@ -48,8 +50,37 @@ function getResults(lat, lng, tipo) {
     });
 }
 
+function getDetalhes(id, lat, lng) {
+    var url = '/petvet?id=' + id + '&lat=' + lat + '&lng=' + lng;
+
+    $('#detalhes').html('<p>Carregando...</p>');
+
+    $.ajax({
+        url: url,
+        type: 'GET',
+        cache: false,
+        success: function(response) {
+            var distancia = ((response.dist * 1) < 1000) ? response.dist + ' m' : ((response.dist * 1) / 1000).toPrecision(1) + ' Km';
+
+            $('#detalhes').html('<div class="logo-pet col grid_3"><img src="' + response.image + '" width="230" height="107"></div>' + "\n"
+            + '<div class="col grid_6">' + "\n"
+                + '<h3>' + response.name + '</h3>' + "\n"
+                + '<div class="avaliacao open">' + "\n"
+                    + '<p><strong>Distância:</strong> ' + distancia + "\n"
+                    + '<p><strong>Endereço:</strong> ' + response.address + '</p>' + "\n"
+                    + '<p><strong>Telefone(s):</strong> ' + response.phones.join(', ') + '</p>' + "\n"
+                    + '<p><strong>Email:</strong> <a href="mailto:' + response.email + '">' + response.email + '</a>' + "\n"
+                + '</div>' + "\n"
+            + '</div>' + "\n"
+            + '<a href="/busca" class="entrar back col grid_3"> voltar</a>');
+        }
+    });
+}
+
 $(document).ready(function () {
-    if ($('#resultados').is('*')) {
+
+    // Listagem de resultados
+    if ( $('#resultados').length ) {
         if ($('#resultados').attr('data-action') === 'geobusca') {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {
@@ -89,4 +120,14 @@ $(document).ready(function () {
             });
         }
     }
+
+    // Detalhamento
+    if ( $('#detalhes').length ) {
+        var id = $('#detalhes').attr('data-id');
+        var lat = $('#detalhes').attr('data-lat');
+        var lng = $('#detalhes').attr('data-lng');
+
+        getDetalhes(id, lat, lng);
+    }
+
 });
