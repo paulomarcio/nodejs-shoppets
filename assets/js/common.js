@@ -93,8 +93,14 @@ function getDetalhes(id, lat, lng) {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {
                     var distancia = ((response.dist * 1) < 1000) ? response.dist + ' m' : ((response.dist * 1) / 1000).toPrecision(1) + ' Km';                                        
-                    var start = {position.coords.latitude, position.coords.longitude};
-                    var destination = {response.loc[0], response.loc[1]};
+                    var start = {
+                        lat: position.coords.latitude, 
+                        lng: position.coords.longitude
+                    };
+                    var destination = {
+                        lat: response.loc[0], 
+                        lng: response.loc[1]
+                    };
 
                     $('#detalhes').html('<div class="logo-pet col grid_3"><img src="' + response.image + '" width="230" height="107"></div>' + "\n"
                     + '<div class="col grid_6">' + "\n"
