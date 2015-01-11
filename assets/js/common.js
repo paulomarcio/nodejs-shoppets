@@ -37,7 +37,7 @@ function getResults(lat, lng, tipo) {
                                 + '<h3>' + nome + '</h3>' + "\n"
                             + '<div class="avaliacao open">Distância: ' + distancia + '</div>' + "\n"
                         + '</div>' + "\n"
-                        + '<a href="/busca/detalhes?id=' + id + '&lat=' + loc[0] + '&lng=' + loc[1] + '" class="entrar col grid_3"><span>+</span> Detalhes</a>' + "\n"
+                        + '<a href="/busca/detalhe?id=' + id + '&lat=' + loc[0] + '&lng=' + loc[1] + '" class="entrar col grid_3"><span>+</span> Detalhes</a>' + "\n"
                         + '</div>' + "\n"
                     + '</div>' + "\n"
                 + '</div>');
