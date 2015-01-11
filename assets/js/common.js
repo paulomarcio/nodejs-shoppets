@@ -24,7 +24,7 @@ function getResults(lat, lng, tipo) {
                 var id = response.data.petvet.items[i].id;
                 var imagem = response.data.petvet.items[i].image;
                 var nome = response.data.petvet.items[i].name;
-                var distancia = ((response.data.petvet.items[i].dist * 1) < 1000) ? response.data.petvet.items[i].dist + ' m' : ((response.data.petvet.items[i].dist * 1) / 1000).toPrecision(1) + ' Km';
+                var distancia = ((response.data.petvet.items[i].dist * 1) < 1000) ? (response.data.petvet.items[i].dist * 1).toPrecision(1) + ' m' : ((response.data.petvet.items[i].dist * 1) / 1000).toPrecision(1) + ' Km';
                 var loc = response.data.petvet.items[i].loc;
 
                 $('#resultados').append('<div class="row lista">' + "\n"
