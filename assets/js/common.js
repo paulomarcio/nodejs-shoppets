@@ -20,9 +20,12 @@ function calcRoute(start, destination) {
         destination: new google.maps.LatLng(destination.lat, destination.lng),
         travelMode: google.maps.TravelMode.DRIVING
     };
+
     directionsService.route(request, function(response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(response);
+        } else {
+            alert('Error!')
         }
     });
 }
