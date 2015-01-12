@@ -25,7 +25,7 @@ function calcRoute(start, destination) {
         if (status == google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(response);
         } else {
-            alert(google.maps.DirectionsStatus);
+            console.log(google.maps.DirectionsStatus);
         }
     });
 }
