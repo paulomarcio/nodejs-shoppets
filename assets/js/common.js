@@ -96,6 +96,7 @@ function getDetalhes(id, lat, lng) {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {
                     var imagem = (response.image == undefined) ? 'http://www.placehold.it/230x107/EFEFEF/AAAAAA&amp;text=no+image' : response.image;
+                    var email = (response.email == undefined) ? '' : response.email;
                     var start = {
                         lat: position.coords.latitude, 
                         lng: position.coords.longitude
@@ -111,7 +112,7 @@ function getDetalhes(id, lat, lng) {
                         + '<div class="avaliacao open">' + "\n"
                             + '<p><strong>Endereço:</strong> ' + response.address + '</p>' + "\n"
                             + '<p><strong>Telefone(s):</strong> ' + response.phones.join(', ') + '</p>' + "\n"
-                            + '<p><strong>Email:</strong> <a href="mailto:' + response.email + '">' + response.email + '</a>' + "\n"
+                            + '<p><strong>Email:</strong> <a href="mailto:' + email + '">' + email + '</a>' + "\n"
                         + '</div>' + "\n"
                     + '</div>' + "\n"
                     + '<a href="/busca" class="entrar back col grid_3"> voltar</a>');
@@ -121,6 +122,7 @@ function getDetalhes(id, lat, lng) {
                 }, function (msg) {
                     var mensagem = typeof msg === 'string' ? msg : "Falhou";
                     var imagem = (response.image == undefined) ? 'http://www.placehold.it/230x107/EFEFEF/AAAAAA&amp;text=no+image' : response.image;
+                    var email = (response.email == undefined) ? '' : response.email;
 
                     $('#detalhes').html('<div class="logo-pet col grid_3"><img src="' + imagem + '" width="230" height="107"></div>' + "\n"
                     + '<div class="col grid_6">' + "\n"
@@ -128,7 +130,7 @@ function getDetalhes(id, lat, lng) {
                         + '<div class="avaliacao open">' + "\n"
                             + '<p><strong>Endereço:</strong> ' + response.address + '</p>' + "\n"
                             + '<p><strong>Telefone(s):</strong> ' + response.phones.join(', ') + '</p>' + "\n"
-                            + '<p><strong>Email:</strong> <a href="mailto:' + response.email + '">' + response.email + '</a>' + "\n"
+                            + '<p><strong>Email:</strong> <a href="mailto:' + email + '">' + email + '</a>' + "\n"
                         + '</div>' + "\n"
                     + '</div>' + "\n"
                     + '<a href="/busca" class="entrar back col grid_3"> voltar</a>');
