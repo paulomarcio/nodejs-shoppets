@@ -54,9 +54,9 @@ function getResults(lat, lng, tipo) {
 
             for (var i = 0; i < itemCount; i++) {
                 var id = response.data.petvet.items[i].id;
-                var imagem = response.data.petvet.items[i].image;
+                var imagem = (response.data.petvet.items[i].image == undefined) ? 'http://www.placehold.it/230x107/EFEFEF/AAAAAA&amp;text=no+image' : response.data.petvet.items[i].image;
                 var nome = response.data.petvet.items[i].name;
-                var distancia = ((response.data.petvet.items[i].dist * 1) < 1000) ? (response.data.petvet.items[i].dist * 1).toPrecision(1) + ' m' : ((response.data.petvet.items[i].dist * 1) / 1000).toPrecision(1) + ' Km';
+                var distancia = ((response.data.petvet.items[i].dist * 1) < 1) ? (response.data.petvet.items[i].dist * 1000) + ' m' : (response.data.petvet.items[i].dist * 1).toPrecision(1) + ' Km';
                 var loc = response.data.petvet.items[i].loc;
 
                 $('#resultados').append('<div class="row lista">' + "\n"
@@ -95,7 +95,7 @@ function getDetalhes(id, lat, lng) {
 
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {
-                    var distancia = ((response.dist * 1) < 1000) ? response.dist + ' m' : ((response.dist * 1) / 1000).toPrecision(1) + ' Km';                                        
+                    var imagem = (response.image == undefined) ? 'http://www.placehold.it/230x107/EFEFEF/AAAAAA&amp;text=no+image' : response.image;
                     var start = {
                         lat: position.coords.latitude, 
                         lng: position.coords.longitude
@@ -109,7 +109,6 @@ function getDetalhes(id, lat, lng) {
                     + '<div class="col grid_6">' + "\n"
                         + '<h3>' + response.name + '</h3>' + "\n"
                         + '<div class="avaliacao open">' + "\n"
-                            + '<p><strong>Distância:</strong> ' + distancia + "\n"
                             + '<p><strong>Endereço:</strong> ' + response.address + '</p>' + "\n"
                             + '<p><strong>Telefone(s):</strong> ' + response.phones.join(', ') + '</p>' + "\n"
                             + '<p><strong>Email:</strong> <a href="mailto:' + response.email + '">' + response.email + '</a>' + "\n"
@@ -127,7 +126,6 @@ function getDetalhes(id, lat, lng) {
                     + '<div class="col grid_6">' + "\n"
                         + '<h3>' + response.name + '</h3>' + "\n"
                         + '<div class="avaliacao open">' + "\n"
-                            + '<p><strong>Distância:</strong> ' + distancia + "\n"
                             + '<p><strong>Endereço:</strong> ' + response.address + '</p>' + "\n"
                             + '<p><strong>Telefone(s):</strong> ' + response.phones.join(', ') + '</p>' + "\n"
                             + '<p><strong>Email:</strong> <a href="mailto:' + response.email + '">' + response.email + '</a>' + "\n"
