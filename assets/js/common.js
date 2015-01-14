@@ -56,7 +56,7 @@ function getResults(lat, lng, tipo) {
                 var id = response.data.petvet.items[i].id;
                 var imagem = (response.data.petvet.items[i].image == undefined) ? 'http://www.placehold.it/230x107/EFEFEF/AAAAAA&amp;text=no+image' : response.data.petvet.items[i].image;
                 var nome = response.data.petvet.items[i].name;
-                var distancia = ((response.data.petvet.items[i].dist * 1) < 1) ? (response.data.petvet.items[i].dist * 1000) + ' m' : (response.data.petvet.items[i].dist * 1).toPrecision(1) + ' Km';
+                var distancia = ((response.data.petvet.items[i].dist * 1) < 1) ? (response.data.petvet.items[i].dist * 1000) + ' m' : (response.data.petvet.items[i].dist * 1).toFixed(1) + ' Km';
                 var loc = response.data.petvet.items[i].loc;
 
                 $('#resultados').append('<div class="row lista">' + "\n"
@@ -105,7 +105,7 @@ function getDetalhes(id, lat, lng) {
                         lng: response.loc[1]
                     };
 
-                    $('#detalhes').html('<div class="logo-pet col grid_3"><img src="' + response.image + '" width="230" height="107"></div>' + "\n"
+                    $('#detalhes').html('<div class="logo-pet col grid_3"><img src="' + imagem+ '" width="230" height="107"></div>' + "\n"
                     + '<div class="col grid_6">' + "\n"
                         + '<h3>' + response.name + '</h3>' + "\n"
                         + '<div class="avaliacao open">' + "\n"
@@ -120,9 +120,9 @@ function getDetalhes(id, lat, lng) {
 
                 }, function (msg) {
                     var mensagem = typeof msg === 'string' ? msg : "Falhou";
-                    var distancia = ((response.dist * 1) < 1000) ? response.dist + ' m' : ((response.dist * 1) / 1000).toPrecision(1) + ' Km';
+                    var imagem = (response.image == undefined) ? 'http://www.placehold.it/230x107/EFEFEF/AAAAAA&amp;text=no+image' : response.image;
 
-                    $('#detalhes').html('<div class="logo-pet col grid_3"><img src="' + response.image + '" width="230" height="107"></div>' + "\n"
+                    $('#detalhes').html('<div class="logo-pet col grid_3"><img src="' + imagem + '" width="230" height="107"></div>' + "\n"
                     + '<div class="col grid_6">' + "\n"
                         + '<h3>' + response.name + '</h3>' + "\n"
                         + '<div class="avaliacao open">' + "\n"
