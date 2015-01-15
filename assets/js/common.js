@@ -106,6 +106,9 @@ function getDetalhes(id, lat, lng) {
                         lng: response.loc[1]
                     };
 
+                    console.log(start);
+                    console.log(destination);
+
                     $('#detalhes').html('<div class="logo-pet col grid_3"><img src="' + imagem+ '" width="230" height="107"></div>' + "\n"
                     + '<div class="col grid_6">' + "\n"
                         + '<h3>' + response.name + '</h3>' + "\n"
