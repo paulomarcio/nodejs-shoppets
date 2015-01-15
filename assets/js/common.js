@@ -6,7 +6,7 @@ function initialize(start, destination) {
     directionsDisplay = new google.maps.DirectionsRenderer();
     var center = new google.maps.LatLng(start.lat, start.lng);
     var mapOptions = {
-        zoom: 8,
+        zoom: 6,
         center: center
     };
     map = new google.maps.Map(document.getElementById('map'), mapOptions);
