@@ -6,7 +6,7 @@ function initialize(start, destination) {
     directionsDisplay = new google.maps.DirectionsRenderer();
     var center = new google.maps.LatLng(start.lat, start.lng);
     var mapOptions = {
-        zoom:11,
+        zoom: 8,
         center: center
     };
     map = new google.maps.Map(document.getElementById('map'), mapOptions);
@@ -69,7 +69,7 @@ function getResults(lat, lng, tipo) {
                                 + '<h3>' + nome + '</h3>' + "\n"
                             + '<div class="avaliacao open">Distância: ' + distancia + '</div>' + "\n"
                         + '</div>' + "\n"
-                        + '<a href="/busca/detalhe?id=' + id + '&lat=' + loc[0] + '&lng=' + loc[1] + '" class="entrar col grid_3"><span>+</span> Detalhes</a>' + "\n"
+                        + '<a href="/busca/detalhe?id=' + id + '&lat=' + loc[1] + '&lng=' + loc[0] + '" class="entrar col grid_3"><span>+</span> Detalhes</a>' + "\n"
                         + '</div>' + "\n"
                     + '</div>' + "\n"
                 + '</div>');
@@ -102,8 +102,8 @@ function getDetalhes(id, lat, lng) {
                         lng: position.coords.longitude
                     };
                     var destination = {
-                        lat: response.loc[1], 
-                        lng: response.loc[0]
+                        lat: response.loc[0], 
+                        lng: response.loc[1]
                     };
 
                     console.log(start);
