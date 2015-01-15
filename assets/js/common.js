@@ -124,7 +124,7 @@ function getDetalhes(id, lat, lng) {
                         + '<h3>' + response.name + '</h3>' + "\n"
                         + '<div class="avaliacao open">' + "\n"
                             + '<p><strong>Endereço:</strong> ' + response.address + '</p>' + "\n"
-                            + '<p><strong>Distância:</strong> ' + response.address + '</p>' + "\n"
+                            + '<p><strong>Distância:</strong> ' + distancia + '</p>' + "\n"
                             + '<p><strong>Telefone(s):</strong> ' + response.phones.join(', ') + '</p>' + "\n"
                             + '<p><strong>Email:</strong> <a href="mailto:' + email + '">' + email + '</a>' + "\n"
                         + '</div>' + "\n"
