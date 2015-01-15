@@ -2,11 +2,22 @@ var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 var map;
 
+function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+    var R = 6371;
+    var dLat = (lat2-lat1) * (Math.PI/180);
+    var dLon = (lon2-lon1) * (Math.PI/180);
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1 * (Math.PI/180)) * Math.cos(lat2 * (Math.PI/180)) * Math.sin(dLon/2) * Math.sin(dLon/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c;
+
+    return d;
+}
+
 function initialize(start, destination) {
     directionsDisplay = new google.maps.DirectionsRenderer();
     var center = new google.maps.LatLng(start.lat, start.lng);
     var mapOptions = {
-        zoom: 6,
+        zoom: 5,
         center: center
     };
     map = new google.maps.Map(document.getElementById('map'), mapOptions);
@@ -105,15 +116,15 @@ function getDetalhes(id, lat, lng) {
                         lat: response.loc[1], 
                         lng: response.loc[0]
                     };
-
-                    console.log(start);
-                    console.log(destination);
+                    var distancia = getDistanceFromLatLonInKm(start.lat, start.lng, destination.lat, destination.lng);
+                    distancia = (distancia < 1) ? distancia + ' m' : (distancia * 100).toFixed(1) + ' Km';
 
                     $('#detalhes').html('<div class="logo-pet col grid_3"><img src="' + imagem+ '" width="230" height="107"></div>' + "\n"
                     + '<div class="col grid_6">' + "\n"
                         + '<h3>' + response.name + '</h3>' + "\n"
                         + '<div class="avaliacao open">' + "\n"
                             + '<p><strong>Endereço:</strong> ' + response.address + '</p>' + "\n"
+                            + '<p><strong>Distância:</strong> ' + response.address + '</p>' + "\n"
                             + '<p><strong>Telefone(s):</strong> ' + response.phones.join(', ') + '</p>' + "\n"
                             + '<p><strong>Email:</strong> <a href="mailto:' + email + '">' + email + '</a>' + "\n"
                         + '</div>' + "\n"
