@@ -119,6 +119,9 @@ function getDetalhes(id, lat, lng) {
                     var distancia = getDistanceFromLatLonInKm(start.lat, start.lng, destination.lat, destination.lng);
                     distancia = (distancia < 1) ? distancia + ' m' : (distancia * 100).toFixed(1) + ' Km';
 
+                    console.log(start);
+                    console.log(destination);
+
                     $('#detalhes').html('<div class="logo-pet col grid_3"><img src="' + imagem+ '" width="230" height="107"></div>' + "\n"
                     + '<div class="col grid_6">' + "\n"
                         + '<h3>' + response.name + '</h3>' + "\n"
