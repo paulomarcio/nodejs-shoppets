@@ -117,7 +117,7 @@ function getDetalhes(id, lat, lng) {
                         lng: response.loc[0]
                     };
                     var distancia = getDistanceFromLatLonInKm(start.lat, start.lng, destination.lat, destination.lng);
-                    distancia = (distancia < 1) ? distancia + ' m' : (distancia * 100).toFixed(1) + ' Km';
+                    distancia = (distancia < 1) ? (distancia * 1000) + ' m' : (distancia * 1).toFixed(1) + ' Km';
 
                     console.log(start);
                     console.log(destination);
