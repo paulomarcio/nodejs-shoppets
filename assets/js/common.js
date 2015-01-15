@@ -102,8 +102,8 @@ function getDetalhes(id, lat, lng) {
                         lng: position.coords.longitude
                     };
                     var destination = {
-                        lat: response.loc[0], 
-                        lng: response.loc[1]
+                        lat: response.loc[1], 
+                        lng: response.loc[0]
                     };
 
                     console.log(start);
