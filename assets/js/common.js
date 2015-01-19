@@ -59,7 +59,7 @@ function geoCodeByAddress(endereco) {
 function getResults(lat, lng) {
     $('a.pagination').html('Pesquisando...');
 
-    var tipo = $('#resultados').attr('data-tipo');
+    var tipo = $('#resultados').attr('data-type');
     var url = ($('a.pagination').attr('href') == '#') ? '/search?lat=' + lat + '&lng=' + lng + '&type=' + tipo : $('a.pagination').attr('href');
 
     $.ajax({
