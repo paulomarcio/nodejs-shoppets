@@ -68,7 +68,7 @@ function getResults(lat, lng) {
         type: 'GET',
         success: function (response) {
             var maxPage = response.results;
-            var origem = (response.data.petvet) ? response.data.petvet : response.data.pet;
+            var origem = (response.data.petvet) ? response.data.petvet : ((response.data.pet) ? response.data.pet : response.data.vet);
             var itemCount = origem.items.length;
             var nextUrl = origem.nextUrl;
             var pageMessage = 'Mais resultados';
