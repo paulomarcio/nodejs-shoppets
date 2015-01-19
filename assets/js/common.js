@@ -84,7 +84,7 @@ function getResults(lat, lng) {
                 var id = origem.items[i].id;
                 var imagem = (origem.items[i].image == undefined) ? 'http://www.placehold.it/230x107/EFEFEF/AAAAAA&amp;text=no+image' : origem.items[i].image;
                 var nome = origem.items[i].name;
-                var distancia = ((origem.items[i].dist * 1) < 1) ? (origem.items[i].dist * 1000) + ' m' : (origem.items[i].dist * 1).toFixed(1) + ' Km';
+                var distancia = ((origem.items[i].dist * 1) < 1) ? ((origem.items[i].dist * 1).toFixed(3)*1000) + ' m' : (origem.items[i].dist * 1).toFixed(1) + ' Km';
                 var loc = origem.items[i].loc;
 
                 $('#resultados').append('<div class="row lista">' + "\n"
@@ -134,7 +134,7 @@ function getDetalhes(id, lat, lng) {
                         lng: response.loc[0]
                     };
                     var distancia = getDistanceFromLatLonInKm(start.lat, start.lng, destination.lat, destination.lng);
-                    distancia = (distancia < 1) ? (distancia * 1000) + ' m' : (distancia * 1).toFixed(1) + ' Km';
+                    distancia = (distancia < 1) ? ((distancia * 1).toFixed(3)*1000) + ' m' : (distancia * 1).toFixed(1) + ' Km';
 
                     console.log(start);
                     console.log(destination);
