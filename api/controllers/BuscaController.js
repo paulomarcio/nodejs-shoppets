@@ -8,7 +8,7 @@
 module.exports = {
     index: function (req, res, next) {
 
-        if (req.params.all().length >= 3) {
+        if (req.params.all()) {
             var geocoder = require('geocoder');
             var endereco = req.param('endereco') + ',' + req.param('numero') + ',' + req.param('cidade') + ',' + req.param('uf');
             var tipo = req.param('tipo');
@@ -16,7 +16,7 @@ module.exports = {
             res.view({
                 endereco: endereco,
                 tipo: tipo,
-                acao: busca
+                acao: 'busca'
             });
         } else {
             res.view({
