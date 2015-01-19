@@ -41,8 +41,10 @@ function calcRoute(start, destination) {
     });
 }
 
-function geoCodeByAddress(endereco, tipo) {
-    geocoder = new google.maps.Geocoder();
+function geoCodeByAddress(endereco, tp) {
+    var tipo = tp;
+    var geocoder = new google.maps.Geocoder();
+    
     geocoder.geocode( { 'address': endereco}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
             var location = results[0].geometry.location;
