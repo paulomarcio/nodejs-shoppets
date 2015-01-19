@@ -95,9 +95,9 @@ function getResults(lat, lng) {
                             + '</div>' + "\n"
                             + '<div class="col grid_6">' + "\n"
                                 + '<h3>' + nome + '</h3>' + "\n"
-                            + '<div class="avaliacao open">Distância: ' + distancia + '</div>' + "\n"
-                        + '</div>' + "\n"
-                        + '<a href="/busca/detalhe?id=' + id + '&lat=' + loc[1] + '&lng=' + loc[0] + '" class="entrar col grid_3"><span>+</span> Detalhes</a>' + "\n"
+                                + '<h2>Distância: ' + distancia + '</h2>' + "\n"
+                            + '</div>' + "\n"
+                            + '<a href="/busca/detalhe?id=' + id + '&lat=' + loc[1] + '&lng=' + loc[0] + '" class="entrar col grid_3"><span>+</span> Detalhes</a>' + "\n"
                         + '</div>' + "\n"
                     + '</div>' + "\n"
                 + '</div>');
@@ -115,65 +115,69 @@ function getDetalhes(id, lat, lng) {
 
     $('#detalhes').html('<p>Carregando...</p>');
 
-    $.ajax({
-        url: url,
-        type: 'GET',
-        cache: false,
-        success: function(response) {
+    if(lat !== undefined && lng !== undefined) {
+        $.ajax({
+            url: url,
+            type: 'GET',
+            cache: false,
+            success: function(response) {
 
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function (position) {
-                    var imagem = (response.image == undefined) ? 'http://www.placehold.it/230x107/EFEFEF/AAAAAA&amp;text=no+image' : response.image;
-                    var email = (response.email == undefined) ? '' : response.email;
-                    var start = {
-                        lat: position.coords.latitude, 
-                        lng: position.coords.longitude
-                    };
-                    var destination = {
-                        lat: response.loc[1], 
-                        lng: response.loc[0]
-                    };
-                    var distancia = getDistanceFromLatLonInKm(start.lat, start.lng, destination.lat, destination.lng);
-                    distancia = (distancia < 1) ? ((distancia * 1).toFixed(3)*1000) + ' m' : (distancia * 1).toFixed(1) + ' Km';
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        var imagem = (response.image == undefined) ? 'http://www.placehold.it/230x107/EFEFEF/AAAAAA&amp;text=no+image' : response.image;
+                        var email = (response.email == undefined) ? '' : response.email;
+                        var start = {
+                            lat: position.coords.latitude, 
+                            lng: position.coords.longitude
+                        };
+                        var destination = {
+                            lat: response.loc[1], 
+                            lng: response.loc[0]
+                        };
+                        var distancia = getDistanceFromLatLonInKm(start.lat, start.lng, destination.lat, destination.lng);
+                        distancia = (distancia < 1) ? ((distancia * 1).toFixed(3)*1000) + ' m' : (distancia * 1).toFixed(1) + ' Km';
 
-                    //console.log(start);
-                    //console.log(destination);
+                        //console.log(start);
+                        //console.log(destination);
 
-                    $('#detalhes').html('<div class="logo-pet col grid_3"><img src="' + imagem+ '" width="230" height="107"></div>' + "\n"
-                    + '<div class="col grid_6">' + "\n"
-                        + '<h3>' + response.name + '</h3>' + "\n"
-                        + '<div class="avaliacao open">' + "\n"
-                            + '<p><strong>Endereço:</strong> ' + response.address + '</p>' + "\n"
-                            + '<p><strong>Distância:</strong> ' + distancia + '</p>' + "\n"
-                            + '<p><strong>Telefone(s):</strong> ' + response.phones.join(', ') + '</p>' + "\n"
-                            + '<p><strong>Email:</strong> <a href="mailto:' + email + '">' + email + '</a>' + "\n"
+                        $('#detalhes').html('<div class="logo-pet col grid_3"><img src="' + imagem+ '" width="230" height="107"></div>' + "\n"
+                        + '<div class="col grid_6">' + "\n"
+                            + '<h3>' + response.name + '</h3>' + "\n"
+                            + '<div class="avaliacao open">' + "\n"
+                                + '<p><strong>Endereço:</strong> ' + response.address + '</p>' + "\n"
+                                + '<p><strong>Distância:</strong> ' + distancia + '</p>' + "\n"
+                                + '<p><strong>Telefone(s):</strong> ' + response.phones.join(', ') + '</p>' + "\n"
+                                + '<p><strong>Email:</strong> <a href="mailto:' + email + '">' + email + '</a>' + "\n"
+                            + '</div>' + "\n"
                         + '</div>' + "\n"
-                    + '</div>' + "\n"
-                    + '<a href="/busca" class="entrar back col grid_3"> voltar</a>');
+                        + '<a href="/busca" class="entrar back col grid_3"> voltar</a>');
 
-                    $('title:first').text(response.name);
+                        $('title:first').text(response.name);
 
-                    initialize(start, destination);
+                        initialize(start, destination);
 
-                }, function (msg) {
-                    var mensagem = typeof msg === 'string' ? msg : "Falhou";
-                    var imagem = (response.image == undefined) ? 'http://www.placehold.it/230x107/EFEFEF/AAAAAA&amp;text=no+image' : response.image;
-                    var email = (response.email == undefined) ? '' : response.email;
+                    }, function (msg) {
+                        var mensagem = typeof msg === 'string' ? msg : "Falhou";
+                        var imagem = (response.image == undefined) ? 'http://www.placehold.it/230x107/EFEFEF/AAAAAA&amp;text=no+image' : response.image;
+                        var email = (response.email == undefined) ? '' : response.email;
 
-                    $('#detalhes').html('<div class="logo-pet col grid_3"><img src="' + imagem + '" width="230" height="107"></div>' + "\n"
-                    + '<div class="col grid_6">' + "\n"
-                        + '<h3>' + response.name + '</h3>' + "\n"
-                        + '<div class="avaliacao open">' + "\n"
-                            + '<p><strong>Endereço:</strong> ' + response.address + '</p>' + "\n"
-                            + '<p><strong>Telefone(s):</strong> ' + response.phones.join(', ') + '</p>' + "\n"
-                            + '<p><strong>Email:</strong> <a href="mailto:' + email + '">' + email + '</a>' + "\n"
+                        $('#detalhes').html('<div class="logo-pet col grid_3"><img src="' + imagem + '" width="230" height="107"></div>' + "\n"
+                        + '<div class="col grid_6">' + "\n"
+                            + '<h3>' + response.name + '</h3>' + "\n"
+                            + '<div class="avaliacao open">' + "\n"
+                                + '<p><strong>Endereço:</strong> ' + response.address + '</p>' + "\n"
+                                + '<p><strong>Telefone(s):</strong> ' + response.phones.join(', ') + '</p>' + "\n"
+                                + '<p><strong>Email:</strong> <a href="mailto:' + email + '">' + email + '</a>' + "\n"
+                            + '</div>' + "\n"
                         + '</div>' + "\n"
-                    + '</div>' + "\n"
-                    + '<a href="/busca" class="entrar back col grid_3"> voltar</a>');
-                });
-            }            
-        }
-    });
+                        + '<a href="/busca" class="entrar back col grid_3"> voltar</a>');
+                    });
+                }            
+            }
+        });
+    } else {
+        location.redirect('/');
+    }
 }
 
 $(document).ready(function () {
