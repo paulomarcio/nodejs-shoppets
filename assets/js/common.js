@@ -41,15 +41,14 @@ function calcRoute(start, destination) {
     });
 }
 
-function geoCodeByAddress(endereco, tp) {
-    var tipo = tp;
+function geoCodeByAddress(endereco) {
     var geocoder = new google.maps.Geocoder();
-    
+
     geocoder.geocode( { 'address': endereco}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
             var location = results[0].geometry.location;
 
-            getResults(location.lat(), location.lng(), tipo);
+            getResults(location.lat(), location.lng());
 
         } else {
             alert('Não pudemos encontrar sua localização pelo seguinte motivo: ' + status);
@@ -57,9 +56,10 @@ function geoCodeByAddress(endereco, tp) {
     });
 }
 
-function getResults(lat, lng, tipo) {
+function getResults(lat, lng) {
     $('a.pagination').html('Pesquisando...');
 
+    var tipo = $('#resultados').attr('data-tipo');
     var url = ($('a.pagination').attr('href') == '#') ? '/search?lat=' + lat + '&lng=' + lng + '&type=' + tipo : $('a.pagination').attr('href');
 
     $.ajax({
@@ -182,15 +182,14 @@ $(document).ready(function () {
                 navigator.geolocation.getCurrentPosition(function (position) {
                     var lat = position.coords.latitude;
                     var lng = position.coords.longitude;
-                    var tipo = $('#resultados').attr('data-type');
 
                     $('#resultados').attr('data-lat', lat);
                     $('#resultados').attr('data-lng', lng);
 
-                    getResults(lat, lng, tipo);
+                    getResults(lat, lng);
 
                     $('a.pagination').click(function () {
-                        getResults(lat, lng, tipo);
+                        getResults(lat, lng);
                         $(this).blur();
                         return false;
                     });
@@ -202,14 +201,13 @@ $(document).ready(function () {
             } else {
                 $('#resultados').html('<h2>Navegador não suporta Geo Localização</h2>');
             }
-        } else {
-            var tipo = $('#resultados').attr('data-tipo');
+        } else {            
             var endereco = $('#resultados').attr('data-endereco');
 
-            geoCodeByAddress(endereco, tipo);
+            geoCodeByAddress(endereco);
 
             $('a.pagination').click(function () {
-                geoCodeByAddress(endereco, tipo);
+                geoCodeByAddress(endereco);
                 $(this).blur();
                 return false;
             });
