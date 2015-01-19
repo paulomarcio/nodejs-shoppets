@@ -68,8 +68,9 @@ function getResults(lat, lng) {
         type: 'GET',
         success: function (response) {
             var maxPage = response.results;
-            var itemCount = response.data.petvet.items.length;
-            var nextUrl = response.data.petvet.nextUrl;
+            var origem = (response.data.petvet) ? response.data.petvet : response.data.pet;
+            var itemCount = origem.items.length;
+            var nextUrl = origem.nextUrl;
             var pageMessage = 'Mais resultados';
 
             if(itemCount < maxPage) {
@@ -80,11 +81,11 @@ function getResults(lat, lng) {
             }            
 
             for (var i = 0; i < itemCount; i++) {
-                var id = response.data.petvet.items[i].id;
-                var imagem = (response.data.petvet.items[i].image == undefined) ? 'http://www.placehold.it/230x107/EFEFEF/AAAAAA&amp;text=no+image' : response.data.petvet.items[i].image;
-                var nome = response.data.petvet.items[i].name;
-                var distancia = ((response.data.petvet.items[i].dist * 1) < 1) ? (response.data.petvet.items[i].dist * 1000) + ' m' : (response.data.petvet.items[i].dist * 1).toFixed(1) + ' Km';
-                var loc = response.data.petvet.items[i].loc;
+                var id = origem.items[i].id;
+                var imagem = (origem.items[i].image == undefined) ? 'http://www.placehold.it/230x107/EFEFEF/AAAAAA&amp;text=no+image' : origem.items[i].image;
+                var nome = origem.items[i].name;
+                var distancia = ((origem.items[i].dist * 1) < 1) ? (origem.items[i].dist * 1000) + ' m' : (origem.items[i].dist * 1).toFixed(1) + ' Km';
+                var loc = origem.items[i].loc;
 
                 $('#resultados').append('<div class="row lista">' + "\n"
                     + '<div class="col grid_12 pets">' + "\n"
