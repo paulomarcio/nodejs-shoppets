@@ -41,6 +41,18 @@ function calcRoute(start, destination) {
     });
 }
 
+function geoCodeByAddress(endereco) {
+    geocoder = new google.maps.Geocoder();
+    geocoder.geocode( { 'address': address}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            return results[0].geometry.location;
+        } else {
+            alert('Não pudemos encontrar sua localização pelo seguinte motivo: ' + status);
+            return false;
+        }
+    });
+}
+
 function getResults(lat, lng, tipo) {
     $('a.pagination').html('Pesquisando...');
 
@@ -188,13 +200,13 @@ $(document).ready(function () {
             }
         } else {
             var tipo = $('#resultados').attr('data-tipo');
-            var lat = $('#resultados').attr('data-lat');
-            var lng = $('#resultados').attr('data-lng');
+            var endereco = $('#resultados').attr('data-endereco');
+            var location = geoCodeByAddress(endereco);
 
-            getResults(lat, lng, tipo);
+            getResults(location.lat(), location.lng(), tipo);
 
             $('a.pagination').click(function () {
-                getResults(lat, lng, tipo);
+                getResults(location.lat(), location.lng(), tipo);
                 $(this).blur();
                 return false;
             });

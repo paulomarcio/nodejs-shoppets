@@ -13,26 +13,14 @@ module.exports = {
             var endereco = req.param('endereco') + ',' + req.param('numero') + ',' + req.param('cidade') + ',' + req.param('uf');
             var tipo = req.param('tipo');
 
-            geocoder.geocode(endereco, function (err, result) {
-                if (err) {
-                    console.log(err);
-                    res.redirect('/');
-                }
-                ;
-
-                if (result.results.length) {
-                    res.view({
-                        lat: result.results[0].geometry.location.lat,
-                        lng: result.results[0].geometry.location.lng,
-                        tipo: tipo,
-                        acao: 'busca'
-                    });
-                }
+            res.view({
+                endereco: endereco,
+                tipo: tipo,
+                acao: busca
             });
         } else {
             res.view({
-                lat: 0,
-                lng: 0,
+                endereco: 0,
                 tipo: 'petvet',
                 acao: 'geobusca'
             });
