@@ -8,7 +8,7 @@
 module.exports = {
     index: function (req, res, next) {
 
-        if (req.params.all()) {
+        if (req.param('endereco') && req.param('numero') && req.param('cidade') && req.param('uf')) {
             var geocoder = require('geocoder');
             var endereco = req.param('endereco') + ',' + req.param('numero') + ',' + req.param('cidade') + ',' + req.param('uf');
             var tipo = req.param('tipo');
