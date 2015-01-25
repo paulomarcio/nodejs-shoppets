@@ -147,7 +147,7 @@ function getDetalhes(id, lat, lng) {
                                 + '<p><strong>Endereço:</strong> ' + response.address + '</p>' + "\n"
                                 + '<p><strong>Distância:</strong> ' + distancia + '</p>' + "\n"
                                 + '<p><strong>Telefone(s):</strong> ' + response.phones.join(', ') + '</p>' + "\n"
-                                + '<p><strong>Email:</strong> <a href="mailto:' + email + '">' + email + '</a>' + "\n"
+                                //+ '<p><strong>Email:</strong> <a href="mailto:' + email + '">' + email + '</a>' + "\n"
                             + '</div>' + "\n"
                         + '</div>' + "\n"
                         + '<a href="/busca" class="entrar back col grid_3"> voltar</a>');
@@ -167,7 +167,7 @@ function getDetalhes(id, lat, lng) {
                             + '<div class="avaliacao open">' + "\n"
                                 + '<p><strong>Endereço:</strong> ' + response.address + '</p>' + "\n"
                                 + '<p><strong>Telefone(s):</strong> ' + response.phones.join(', ') + '</p>' + "\n"
-                                + '<p><strong>Email:</strong> <a href="mailto:' + email + '">' + email + '</a>' + "\n"
+                                //+ '<p><strong>Email:</strong> <a href="mailto:' + email + '">' + email + '</a>' + "\n"
                             + '</div>' + "\n"
                         + '</div>' + "\n"
                         + '<a href="/busca" class="entrar back col grid_3"> voltar</a>');
