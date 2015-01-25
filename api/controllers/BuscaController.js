@@ -56,11 +56,15 @@ module.exports = {
         var id = req.param('id');
         var lat = req.param('lat');
         var lng = req.param('lng');
+        var mylat = req.param('mylat');
+        var mylng = req.param('mylng');
 
         res.view({
             id: id,
             lat: lat,
-            lng: lng
+            lng: lng,
+            mylat: mylat,
+            mylng: mylng
         });
     }
 };
