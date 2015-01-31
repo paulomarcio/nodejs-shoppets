@@ -212,7 +212,7 @@ $(document).ready(function () {
         getDetalhes(id, lat, lng);
     }
 
-    $('div.col grid_6').delegate('a.back', 'click', function(){
+    $(document).delegate('a.back', 'click', function(){
         window.history.back();
         $(this).blur();
         return false;
