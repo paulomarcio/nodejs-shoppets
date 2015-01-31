@@ -13,7 +13,7 @@ module.exports = {
                 near :  loc,
                 spherical : true,
                 distanceField: "dist",
-                query: {'type': {'$in': [type, "PETVET"]}},
+                query: {'type': {'$in': [type]}},
                 distanceMultiplier: 6371,
                 maxDistance: SearchService.MAX_DISTANCE
               }

@@ -90,7 +90,7 @@ module.exports = {
                     ret.err = "Type invalid";
                     res.status(status).json(ret);
                 } else {
-                    SearchService.getPetVetByLocAndType([lng, lat], "VET", p, function (err, petvets) {
+                    SearchService.getPetVetByLocAndType([lng, lat], type, p, function (err, petvets) {
                         if (err) {
                             status = 400;
                             ret.err = "Error searching";
@@ -106,16 +106,16 @@ module.exports = {
                         }
                     });
                 }
-            } else {
-                SearchService.getPetVetByLocAndType([lng, lat], "PET", p, function (err, petvets) {
+            } /*else {
+                SearchService.getPetVetByLocAndType([lng, lat], "PETVET", p, function (err, petvets) {
                     if (err) {
                         status = 400;
                         ret.err = "Error searching";
                         res.status(status).json(ret);
                     } else {
                         ret.data = {
-                            pet: {
-                                nextUrl: "/search?lat=" + lat + "&lng=" + lng + "&type=PET&p=" + (p + 1),
+                            petvet: {
+                                nextUrl: "/search?lat=" + lat + "&lng=" + lng + "&type=PETVET&p=" + (p + 1),
                                 items: petvets
                             }
                         };
@@ -136,7 +136,7 @@ module.exports = {
                         });
                     }
                 });
-            }
+            }*/
         }
     }
 };
