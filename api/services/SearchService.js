@@ -3,6 +3,9 @@ module.exports = {
   MAX_DISTANCE: 1000*5,
 
   getPetVetByLocAndType: function(loc, type, p, cb) {
+
+    var tipo = (type == 'PETVET') ? ['PET','VET','PETVET'] : [type];
+
     PetVet.native(function(err, collection) {
       if(err) cb(true, null);
       else{
@@ -13,7 +16,7 @@ module.exports = {
                 near :  loc,
                 spherical : true,
                 distanceField: "dist",
-                query: {'type': {'$in': [type]}},
+                query: {'type': {'$in': tipo}},
                 distanceMultiplier: 6371,
                 maxDistance: SearchService.MAX_DISTANCE
               }
