@@ -8,10 +8,10 @@
 module.exports = {
     index: function (req, res, next) {
 
-        if (req.param('endereco') && req.param('numero') && req.param('cidade') && req.param('uf')) {
+        if (req.param('endereco') && req.param('cidade') && req.param('uf')) {
             var geocoder = require('geocoder');
-            var endereco = req.param('endereco') + ',' + req.param('numero') + ',' + req.param('cidade') + ',' + req.param('uf');
-            var tipo = req.param('tipo');
+            var endereco = (req.param('numero')) ? req.param('endereco') + ',' + req.param('numero') + ',' + req.param('cidade') + ',' + req.param('uf') : req.param('endereco') + ',' + req.param('cidade') + ',' + req.param('uf');
+            var tipo = (req.param('tipo')) ? req.param('tipo') : 'petvet';
 
             res.view({
                 endereco: endereco,
@@ -31,7 +31,7 @@ module.exports = {
         var cep = require('cep');
 
         if (req.param('cep')) {
-            cep.request.data.from(req.param('cep'), function (err, endereco) {
+            cep.request.data.from(req.param('cep').replace('-', ''), function (err, endereco) {
                 if (err) {
                     console.log(err);
                     res.redirect('/');

@@ -216,6 +216,8 @@ $(document).ready(function () {
         window.history.back();
         $(this).blur();
         return false;
-    })
+    });
+
+    $('#busca-cep').mask('99999-999');
 
 });
