@@ -150,7 +150,7 @@ function getDetalhes(id, lat, lng) {
                         //+ '<p><strong>Email:</strong> <a href="mailto:' + email + '">' + email + '</a>' + "\n"
                     + '</div>' + "\n"
                 + '</div>' + "\n"
-                + '<a href="/busca" class="entrar back col grid_3"> voltar</a>');
+                + '<a href="javascript:void(0);" class="entrar back col grid_3"> voltar</a>');
 
                 $('title:first').text(response.name);
 
@@ -211,5 +211,11 @@ $(document).ready(function () {
 
         getDetalhes(id, lat, lng);
     }
+
+    $('div.col grid_6').delegate('a.back', 'click', function(){
+        window.history.back();
+        $(this).blur();
+        return false;
+    })
 
 });
