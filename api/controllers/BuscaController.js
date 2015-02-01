@@ -31,7 +31,7 @@ module.exports = {
         var cep = require('cep');
 
         if (req.param('cep')) {
-            cep.request.data.from(req.param('cep').replace('-', ''), function (err, endereco) {
+            cep.request.data.from(req.param('cep'), function (err, endereco) {
                 if (err) {
                     res.view({
                         endereco: {
@@ -46,6 +46,17 @@ module.exports = {
                         endereco: endereco
                     });
                 }
+            });
+
+            process.on('uncaughtException', function (exception) {
+               res.view({
+                    endereco: {
+                        logradouro: '',
+                        bairro: '',
+                        localidade: '',
+                        uf: ''
+                    }
+                });
             });
         } else {
             res.view({
