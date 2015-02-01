@@ -82,7 +82,7 @@ function getResults(lat, lng) {
 
             for (var i = 0; i < itemCount; i++) {
                 var id = origem.items[i].id;
-                var imagem = (origem.items[i].image == undefined) ? 'http://www.placehold.it/230x107/EFEFEF/AAAAAA&amp;text=no+image' : origem.items[i].image;
+                var imagem = (origem.items[i].image == undefined) ? 'http://www.placehold.it/150x150/EFEFEF/AAAAAA&amp;text=no+image' : origem.items[i].image;
                 var nome = origem.items[i].name;
                 var distancia = ((origem.items[i].dist * 1) < 1) ? ((origem.items[i].dist * 1).toFixed(3)*1000) + ' m' : (origem.items[i].dist * 1).toFixed(1) + ' Km';
                 var loc = origem.items[i].loc;
@@ -91,7 +91,7 @@ function getResults(lat, lng) {
                     + '<div class="col grid_12 pets">' + "\n"
                         + '<div class="row gutters">' + "\n"
                             + '<div class="logo-pet col grid_3">' + "\n"
-                                + '<img src="' + imagem + '" width="230" height="107">' + "\n"
+                                + '<img src="' + imagem + '">' + "\n"
                             + '</div>' + "\n"
                             + '<div class="col grid_6">' + "\n"
                                 + '<h3>' + nome + '</h3>' + "\n"
@@ -124,7 +124,7 @@ function getDetalhes(id, lat, lng) {
             cache: false,
             success: function(response) {
 
-                var imagem = (response.image == undefined) ? 'http://www.placehold.it/230x107/EFEFEF/AAAAAA&amp;text=no+image' : response.image;
+                var imagem = (response.image == undefined) ? 'http://www.placehold.it/150x150/EFEFEF/AAAAAA&amp;text=no+image' : response.image;
                 var email = (response.email == undefined) ? '' : response.email;
                 var start = {
                     lat: mylat, 
