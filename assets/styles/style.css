@@ -2,7 +2,7 @@
 * { margin: 0; padding: 0; text-decoration: none; }
 html { height: 100%; }
 body { height: 100%; font-family: 'Open Sans', sans-serif; }
-.home { background: url(../images/bg3.jpg) no-repeat center center; background-size: 100% auto; width: 100%; height: 100%; padding-top: 60px; }
+.home { background: url(/images/bg3.jpg) no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; width: 100%; height: 100%; padding-top: 60px; }
 .interna { padding-top: 60px; background-color: #fafafc; }
 header { min-height: 55px; background-color: #000; color: #fff; }
 header .logo { font-size: 30px; font-weight: 700; padding: 12px 0 0 0; }
