@@ -33,13 +33,19 @@ module.exports = {
         if (req.param('cep')) {
             cep.request.data.from(req.param('cep').replace('-', ''), function (err, endereco) {
                 if (err) {
-                    console.log(err);
-                    res.redirect('/');
+                    res.view({
+                        endereco: {
+                            logradouro: '',
+                            bairro: '',
+                            localidade: '',
+                            uf: ''
+                        }
+                    });
+                } else {
+                    res.view({
+                        endereco: endereco
+                    });
                 }
-
-                res.view({
-                    endereco: endereco
-                });
             });
         } else {
             res.view({
