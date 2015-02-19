@@ -85,6 +85,8 @@ function getResults(lat, lng) {
                 var imagem = (origem.items[i].image == undefined) ? '/images/badge_pets.png' : origem.items[i].image;
                 var nome = origem.items[i].name;
                 var distancia = ((origem.items[i].dist * 1) < 1) ? ((origem.items[i].dist * 1).toFixed(3)*1000) + ' m' : (origem.items[i].dist * 1).toFixed(1) + ' Km';
+                var telefones = origem.items[i].phones.join(', ');
+                var endereco = origem.items[i].address;
                 var loc = origem.items[i].loc;
 
                 $('#resultados').append('<div class="row lista">' + "\n"
@@ -96,9 +98,9 @@ function getResults(lat, lng) {
                             + '<div class="col grid_6">' + "\n"
                                 + '<h3>' + nome + '</h3>' + "\n"
                                 + '<div class="avaliacao open">' + "\n"
-                                    + '<p><strong>Endereço:</strong> ' + response.address + '</p>' + "\n"
+                                    + '<p><strong>Endereço:</strong> ' + endereco + '</p>' + "\n"
                                     + '<p><strong>Distância:</strong> ' + distancia + '</p>' + "\n"
-                                    + '<p><strong>Telefone(s):</strong> ' + response.phones.join(', ') + '</p>' + "\n"
+                                    + '<p><strong>Telefone(s):</strong> ' + telefones + '</p>' + "\n"
                                 + '</div>' + "\n"
                             + '</div>' + "\n"
                             + '<a href="/busca/detalhe?id=' + id + '&lat=' + loc[1] + '&lng=' + loc[0] + '&mylat=' + lat + '&mylng=' + lng + '" class="entrar col grid_3">Como chegar</a>' + "\n"
